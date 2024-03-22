@@ -1,4 +1,5 @@
 #include <locale.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +8,7 @@
 #define ABS(x) (x >= 0) ? (x) : -(x)
 
 // Параметры по умолчанию
-int size = 0; // количество элементов массива
+int dim = 100; // количество элементов массива
 
 
 
@@ -99,21 +100,34 @@ double g_mas(double* mas) {
     int i = 0;
     srand(time(NULL));// чтобы числа были разными
 
-    for (i = 0; i < size; i++) {
+    for (i = 0; i < dim; i++) {
         mas[i] = g_num();
     }
 }
 
 //
 void start(void) {
-    printf("Использование : \n\t --help or\n\t --n [a] --r [min] [max] --op 0|1|2|3\n");
+    printf("Использование : \n\t Сравнение сортировок \n\t --help (-Н) - справка по функциям.");
 }
 
 void help(void) {
-    printf("cправка.\n");
+    printf("Справка:\n  1) --dim (-D) - размер массива. По умолчанию 100\n");
+    printf("  2) --arr (-A) |1|2|3|4|- вид входного массива. По умолчанию 1\n");
+    printf("\tВ качестве аргумента принимает число от 1 до 4:\n");
+    printf("\t 1 - элементы упорядочены\n");
+    printf("\t 2 - элементы упорядочены в обратном порядке\n");
+    printf("\t 3 - случайный порядок элементов\n");
+    printf("\t 4 - случайный порядок элементов, но не как в предыдущем\n");
+    printf("  3) --sort (-S) |1|2| - вид сортировки. По умолчанию 1\n");
+    printf("\tВ качестве аргумента принимает числа 1 или 2:\n");
+    printf("\t 1 - сортировка выбором\n");
+    printf("\t 2 - рекурсивная сортировка\n");
+    printf("\n");
+    printf("  Пример ввода:\n");
+    printf("\t --dim 10 -A 2 - выполнит сортировку 10 элементов, упорядоченных по невозрастанию\n");
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
      int *a, *b; float *c;  // указатели на массив
      int n, op, min, max; // параметры
      int fl_n = 0, fl_r = 0, fl_op = 0; // флаги задания параметров
@@ -121,11 +135,10 @@ int main(int argc, char **argv) {
 
      if(argc <= 1) {
         start();
-         //printf("Использование : \n\t%s --help or\n\t%s --n [a] --r [min] [max] --op 0|1|2|3\n", argv[0],argv[0]);
          return 0;
      }
 
-     if(!strcmp(argv[1], "--help")){ // если строки ровны
+     if(!strcmp(argv[1], "--help") || !strcmp(argv[1], "-H")){ // если строки ровны
          help();
          return 0;
      }
@@ -193,7 +206,7 @@ int main(int argc, char **argv) {
         printf("Задано: n = %d   op = %d   min, max = %d, %d \n",n,op,min,max);
     }
 
-    // Выделение памяти
+    /* Выделение памяти
     a = (int*)malloc(n * sizeof(int));
     b = (int*)malloc(n * sizeof(int));
     c = (float*)calloc(n , sizeof(float));
@@ -222,6 +235,6 @@ int main(int argc, char **argv) {
 
      free(a);
      free(b);
-     free(c);
+     free(c);*/
      return 0;
  }
